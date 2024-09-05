@@ -149,7 +149,9 @@ body {
   width: 160px;
   height:80px;
 }
-
+.logo{
+  width: auto;
+}
 .text-sci h2 {
     font-size: 40px;
     line-height: 1;
