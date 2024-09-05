@@ -44,7 +44,7 @@ body {
     
   
     }
-.navbar a::after {
+.ab::after {
     content: '';
     position: absolute;
     left: 0;
