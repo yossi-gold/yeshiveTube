@@ -153,6 +153,10 @@ body {
   width: 250px;
   height: auto;
 }
+.text-sci{
+    width: 300px;
+}
+
 .text-sci h2 {
     font-size: 40px;
     line-height: 1;
@@ -164,6 +168,7 @@ body {
 
 .text-sci p {
     font-size: 16px;
+    font-weight: 500;
     margin: 20px 0;
 }
 
