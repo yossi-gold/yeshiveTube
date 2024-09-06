@@ -170,7 +170,7 @@ body {
     font-size: 16px;
     font-weight: 500;
     margin: 20px 0;
-    -webkit-text-stroke: 1px lightgray;
+    -webkit-text-stroke: 1px gray;
 }
 
 .social-icons a i {
