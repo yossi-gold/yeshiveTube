@@ -185,5 +185,10 @@ body {
 }
 
 .empty{
-    
+    position: absolute;
+    width: 350px;
+    height: 150px;
+    background-color: white;
+    border-radius: 10px;
+    color: #e4e4e4;
 }
