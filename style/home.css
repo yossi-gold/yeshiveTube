@@ -147,10 +147,11 @@ body {
 
 .logo-div {
   width: 250px;
-  height:100px;
+  
 }
 .logo{
-  width: auto;
+  width: 100%;
+  height: auto;
 }
 .text-sci h2 {
     font-size: 40px;
