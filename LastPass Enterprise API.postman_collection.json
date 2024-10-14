@@ -1,0 +1,517 @@
+{
+	"info": {
+		"_postman_id": "ac0390a5-7ce2-43ff-a581-30f8c1fee002",
+		"name": "LastPass Enterprise API",
+		"description": "LastPass supports a public API that can be used by **LastPass Business accounts** to create users, de-provision users, manage groups, pull reporting data, view license  \nutilization, and much more.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19754529"
+	},
+	"item": [
+		{
+			"name": "Provision Users",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cid\": \"{{CID}}\",\n    \"provhash\": \"{{ProvisionHash}}\",\n    \"cmd\": \"batchadd\",\n    \"data\": [\n        {\n            \"username\": \"user0@lastpass.com\"\n        },\n        {\n            \"username\": \"user1@lastpass.com\",\n            \"fullname\": \"John Doe\"\n        },\n        {\n            \"username\": \"user2@lastpass.com\",\n            \"fullname\": \"Mark Hunter\",\n            \"groups\": [\n                \"Group1\",\n                \"Group2\",\n                \"Group3\"\n            ],\n            \"attribs\": {\n                \"objectGUID\": \"d3b07384d113edec49eaa6238ad5ff00\",\n                \"Department\": \"Finance\",\n                \"EmployeeNumber\": \"192832\"\n            }\n        },\n        {\n            \"username\": \"user3@lastpass.com\",\n            \"fullname\": \"John Smith\",\n            \"password\": \"DefaultPassword\"\n        },\n        {\n            \"username\": \"user4@lastpass.com\",\n            \"fullname\": \"Jane Smith\",\n            \"password\": \"DefaultPassword\",\n            \"password_reset_required\": false\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lastpass.com/enterpriseapi.php",
+					"protocol": "https",
+					"host": [
+						"lastpass",
+						"com"
+					],
+					"path": [
+						"enterpriseapi.php"
+					]
+				},
+				"description": "The 'batchadd' command is used to provision new or update existing users. The 'username' field is required while the 'fullname', 'groups', 'duousername', 'securidusername', 'password' and 'password_reset_required' fields are optional. By setting the 'password' field you can define a default password for the new user that could be temporary or permanent based on the 'password_reset_required' field's value (default: true)."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Shared Folder",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cid\": \"{{CID}}\",\n    \"provhash\": \"{{ProvisionHash}}\",\n    \"cmd\": \"getsfdata\",\n    \"data\": \"all\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lastpass.com/enterpriseapi.php",
+					"protocol": "https",
+					"host": [
+						"lastpass",
+						"com"
+					],
+					"path": [
+						"enterpriseapi.php"
+					]
+				},
+				"description": "Get Shared Folder Data returns a JSON object containing information on all shared folders in the LastPass Business account and the permissions granted to them. The 'data' field is optional; it lists super admins, as well."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Shared Folder Details",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cid\": \"{{CID}}\",\n    \"provhash\": \"{{ProvisionHash}}\",\n    \"cmd\": \"getdetailedsfdata\",\n    \"data\": \"all\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lastpass.com/enterpriseapi.php",
+					"protocol": "https",
+					"host": [
+						"lastpass",
+						"com"
+					],
+					"path": [
+						"enterpriseapi.php"
+					]
+				},
+				"description": "Get Shared Folder Data returns a JSON object containing information on all shared folders with sites in the LastPass Business account and the permissions granted to them. The 'data' field is optional; it lists super admins, as well."
+			},
+			"response": []
+		},
+		{
+			"name": "Batch Change Group",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cid\": \"{{CID}}\",\n    \"provhash\": \"{{ProvisionHash}}\",\n    \"cmd\": \"batchchangegrp\",\n    \"data\": [\n        {\n            \"username\": \"user1@lastpass.com\",\n            \"add\": [\n                \"Group1\",\n                \"Group2\"\n            ]\n        },\n        {\n            \"username\": \"user2@lastpass.com\",\n            \"add\": [\n                \"Group1\"\n            ],\n            \"del\": [\n                \"Group2\",\n                \"Group3\"\n            ]\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lastpass.com/enterpriseapi.php",
+					"protocol": "https",
+					"host": [
+						"lastpass",
+						"com"
+					],
+					"path": [
+						"enterpriseapi.php"
+					]
+				},
+				"description": "Use Batch Change Group to edit groups. A JSON string is returned with a status of OK, WARN or FAIL. For WARN and FAIL, an error field is returned to assist with debugging."
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Data",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cid\": \"{{CID}}\",\n    \"provhash\": \"{{ProvisionHash}}\",\n    \"cmd\": \"getuserdata\",\n    \"data\": {\n        \"username\": \"user1@lastpass.com\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lastpass.com/enterpriseapi.php",
+					"protocol": "https",
+					"host": [
+						"lastpass",
+						"com"
+					],
+					"path": [
+						"enterpriseapi.php"
+					]
+				},
+				"description": "The getuserdata command returns  \ninformation about users in your LastPass Business account. The optional data element is used to filter or limit the returned data set. Tip: To prevent details from being omitted from the response, avoid retrieving  \nmore than 2000 users at a time.\n\n**pagesizeLimits**  \nthe maximum number of items listed per page.  \n  \n**pageindex**  \nThe page number. Default: 0.  \n  \n**username**  \n\\-Return only the specified user.  \n  \n**disabled**  \n0-Return only active accounts.  \n1-Return only disabled accounts.  \n  \n**admin**  \n0-Return only non-admin accounts.  \n1-Return only admin accounts."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cid\": \"{{CID}}\",\n    \"provhash\": \"{{ProvisionHash}}\",\n    \"cmd\": \"deluser\",\n    \"data\": {\n        \"username\": \"user1@lastpass.com\",\n        \"deleteaction\": 0\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lastpass.com/enterpriseapi.php",
+					"protocol": "https",
+					"host": [
+						"lastpass",
+						"com"
+					],
+					"path": [
+						"enterpriseapi.php"
+					]
+				},
+				"description": "Delete individual users.  \n  \n**deleteaction**  \n  \n0-Deactivate user. Block login but retain data and LastPass Business membership.  \n1-Remove user. Remove the user from your LastPass Business account but keep the account itself active.  \n2-Delete user. Delete the account entirely."
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cid\": \"{{CID}}\",\n    \"provhash\": \"{{ProvisionHash}}\",\n    \"cmd\": \"updateuser\",\n    \"data\": {\n        \"username\": \"user1@lastpass.com\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lastpass.com/enterpriseapi.php",
+					"protocol": "https",
+					"host": [
+						"lastpass",
+						"com"
+					],
+					"path": [
+						"enterpriseapi.php"
+					]
+				},
+				"description": "Use the updateuser command to update individual users.  \n  \n**fullname**  \nUpdate the user's full name.  \n  \n**duousernameUpdate**  \nthe user's Duo Security username.  \n  \n**securidusername**  \nSet or update the RSA SecurID username."
+			},
+			"response": []
+		},
+		{
+			"name": "Reinvite User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cid\": \"{{CID}}\",\n    \"provhash\": \"{{ProvisionHash}}\",\n    \"cmd\": \"reinviteuser\",\n    \"data\": {\n        \"username\": \"user1@lastpass.com\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lastpass.com/enterpriseapi.php",
+					"protocol": "https",
+					"host": [
+						"lastpass",
+						"com"
+					],
+					"path": [
+						"enterpriseapi.php"
+					]
+				},
+				"description": "Reinvite individual users."
+			},
+			"response": []
+		},
+		{
+			"name": "Disable Multifactor",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cid\": \"{{CID}}\",\n    \"provhash\": \"{{ProvisionHash}}\",\n    \"cmd\": \"disablemultifactor\",\n    \"data\": {\n        \"username\": \"user1@lastpass.com\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lastpass.com/enterpriseapi.php",
+					"protocol": "https",
+					"host": [
+						"lastpass",
+						"com"
+					],
+					"path": [
+						"enterpriseapi.php"
+					]
+				},
+				"description": "Use the disablemultifactor command to disable a user's multifactor authentication."
+			},
+			"response": []
+		},
+		{
+			"name": "Event Reporting",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cid\": \"{{CID}}\",\n    \"provhash\": \"{{ProvisionHash}}\",\n    \"cmd\": \"reporting\",\n    \"data\": {\n        \"from\": \"2015-07-17 09:45:00\",\n        \"to\": \"2015-07-17 10:00:00\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lastpass.com/enterpriseapi.php",
+					"protocol": "https",
+					"host": [
+						"lastpass",
+						"com"
+					],
+					"path": [
+						"enterpriseapi.php"
+					]
+				},
+				"description": "Use the reporting command to gather information about events that have taken place in your LastPass Business account. You can retrieve 10 000 users at a time. Use the 'next' parameter to paginate over a larger dataset. Events are sorted by time, in descending order. All times should be represented in this time zone: Europe/Dublin.  \n  \n**from**  \nPull reporting data starting from this date. If no value is entered, the current day is used, from 0:00.  \n  \n**to**  \nPull reporting data until this date. If no value is entered, the current day is used, until 23:59:59.  \n  \n**search**  \nA search string to filter the reporting data.  \n  \n**user**  \nTo pull data for a specific user, enter their username. To pull data for all users, enter 'allusers'.  \n  \n**admin**  \nTo retrieve only admin events, set this value to '1'.  \n  \n**next**  \nThis serves as a paginator when more than 10 000 events occur in the time interval between the 'from' and 'to' parameters. It's a timestamp with microsecond precision. Respond with those events that occur within this time or earlier. The response also contains a 'next' field that is to be used as the value of this parameter. It's a timestamp with microsecond precision. Respond with those events that occur within this time or  \nearlier. The response also contains a 'next' field that is to be used as the value of this parameter.  \n  \n**format**  \nsiem-The response is in a format that works well with security information and event management systems."
+			},
+			"response": []
+		},
+		{
+			"name": "Send Password Reset Email",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cid\": \"{{CID}}\",\n    \"provhash\": \"{{ProvisionHash}}\",\n    \"cmd\": \"resetpassword\",\n    \"data\": {\n        \"username\": \"user1@lastpass.com\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lastpass.com/enterpriseapi.php",
+					"protocol": "https",
+					"host": [
+						"lastpass",
+						"com"
+					],
+					"path": [
+						"enterpriseapi.php"
+					]
+				},
+				"description": "Use the resetpassword command to send a password reset email to a user."
+			},
+			"response": []
+		},
+		{
+			"name": "Update User Email",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cid\": \"{{CID}}\",\n    \"provhash\": \"{{ProvisionHash}}\",\n    \"cmd\": \"updateemail\",\n    \"data\": {\n        \"oldemail\": \"user1@lastpass.com\",\n        \"newemail\": \"newemail@lastpass.com\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lastpass.com/enterpriseapi.php",
+					"protocol": "https",
+					"host": [
+						"lastpass",
+						"com"
+					],
+					"path": [
+						"enterpriseapi.php"
+					]
+				},
+				"description": "Update a user's email. The user must log in with their old username and master password to finalize the change.  \n  \n**oldemail**  \nThe user's current/old email address.  \n  \n**newemail**  \nThe user's new email address."
+			},
+			"response": []
+		},
+		{
+			"name": "Require master password change",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cid\": \"{{CID}}\",\n    \"provhash\": \"{{ProvisionHash}}\",\n    \"cmd\": \"requiremasterpasswordchange\",\n    \"data\": {\n        \"username\": \"user1@lastpass.com\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lastpass.com/enterpriseapi.php",
+					"protocol": "https",
+					"host": [
+						"lastpass",
+						"com"
+					],
+					"path": [
+						"enterpriseapi.php"
+					]
+				},
+				"description": "Require a user to change their master password. The user will be prompted to change their master password upon next login.  \n  \n**username**  \nThe user's email address."
+			},
+			"response": []
+		},
+		{
+			"name": "Destroy User Sessions",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cid\": \"{{CID}}\",\n    \"provhash\": \"{{ProvisionHash}}\",\n    \"cmd\": \"destroyusersessions\",\n    \"data\": {\n        \"username\": \"user1@lastpass.com\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lastpass.com/enterpriseapi.php",
+					"protocol": "https",
+					"host": [
+						"lastpass",
+						"com"
+					],
+					"path": [
+						"enterpriseapi.php"
+					]
+				},
+				"description": "Destroy a user's sessions.  \n  \n**username**  \nThe user's email address."
+			},
+			"response": []
+		},
+		{
+			"name": "Enable users",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cid\": \"{{CID}}\",\n    \"provhash\": \"{{ProvisionHash}}\",\n    \"cmd\": \"enableuser\",\n    \"data\": [\n        \"user1@lastpass.com\",\n        \"user2@lastpass.com\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lastpass.com/enterpriseapi.php",
+					"protocol": "https",
+					"host": [
+						"lastpass",
+						"com"
+					],
+					"path": [
+						"enterpriseapi.php"
+					]
+				},
+				"description": "Use this API to enable user accounts by email addresses.  \n  \n**cid**  \nCompany ID: a mandatory integer parameter  \n**provhash**  \nCompany specific provisioning hash: a mandatory string parameter  \n**cmd**  \nThe API command, that is, enableuser: a mandatory string parameter  \n**data**  \nThe list of users to modify: a mandatory array parameter\n\n  \n**Response**\n\n**status**  \nThe status of the response  \n**enabled_users**  \nThe list of enabled users: an optional array  \n**unchanged_users**  \nThe list of users that are not changed: an optional array\n\n**error**  \nDescription of the error if there was any: optional"
+			},
+			"response": []
+		},
+		{
+			"name": "Disable users",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cid\": \"{{CID}}\",\n    \"provhash\": \"{{ProvisionHash}}\",\n    \"cmd\": \"disableuser\",\n    \"data\": [\n        \"user1@lastpass.com\",\n        \"user2@lastpass.com\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lastpass.com/enterpriseapi.php",
+					"protocol": "https",
+					"host": [
+						"lastpass",
+						"com"
+					],
+					"path": [
+						"enterpriseapi.php"
+					]
+				},
+				"description": "Use this API to disable user accounts by email addresses.\n\n**cid**  \nCompany ID: a mandatory integer parameter  \n**provhash**  \nCompany specific provisioning hash: a mandatory string parameter  \n**cmd**  \nThe API command, that is, disableuser: a mandatory string parameter  \n**data**  \nThe list of users to modify: a mandatory array parameter\n\n**Response**\n\n**status**  \nThe status of the response  \n**disabled_users**  \nThe list of disabled users: an optional array  \n**unchanged_users**  \nThe list of users that are not changed: an optional array\n\n**error**  \nDescription of the error if there was any: optional"
+			},
+			"response": []
+		}
+	]
+}
